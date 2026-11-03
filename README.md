@@ -3,7 +3,12 @@
 A proof-of-concept product catalogue: browse featured products and categories, search, view a
 product and send an enquiry that emails the sales inbox.
 
-**Live demo:** https://product-catalogue-xi.vercel.app
+> **🔗 Live demo: [product-catalogue-xi.vercel.app](https://product-catalogue-xi.vercel.app)**
+>
+> Try it: open a category, search for `jacket`, open a product and click **Enquire**.
+
+**Quick start:** `npm install`, then `npm run dev`, then open http://localhost:5173.
+Tests: `npm test`. Production build: `npm run build`. Details below.
 
 | Layer    | Choice                             |
 | -------- | ---------------------------------- |
@@ -44,6 +49,14 @@ No configuration is needed. To change anything, copy `apps/api/.env.example` to
 npm test          # API (Vitest + Supertest) and web (Vitest + Testing Library)
 npm run typecheck
 ```
+
+### Build
+
+```bash
+npm run build     # type-checks the web app and outputs a production bundle to apps/web/dist
+```
+
+The API runs from TypeScript source with `npm start -w @catalogue/api`, so it needs no build step.
 
 ### Seeing a real email locally (optional)
 
