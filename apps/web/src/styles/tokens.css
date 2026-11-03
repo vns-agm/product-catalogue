@@ -1,41 +1,65 @@
 /*
  * Design tokens. The brand's look and feel is still being designed, so every
- * colour, font and radius lives here; restyling should mostly mean editing
- * this file.
+ * colour, gradient, font and radius lives here; restyling should mostly mean
+ * editing this file.
  */
 :root {
-  --color-bg: #f7f7f5;
+  --color-bg: #f6f5ff;
   --color-surface: #ffffff;
-  --color-text: #1d1d1f;
-  --color-text-muted: #6b6b70;
-  --color-border: #e3e3e0;
-  --color-primary: #1f4fd8;
-  --color-primary-hover: #183fb0;
+  --color-surface-glass: rgb(255 255 255 / 72%);
+  --color-text: #17162b;
+  --color-text-muted: #5f5d7a;
+  --color-border: #e6e3f5;
+  --color-primary: #6d3df5;
   --color-on-primary: #ffffff;
-  --color-danger: #b42318;
-  --color-success-bg: #ecfdf3;
-  --color-success-border: #75e0a7;
+  --color-danger: #c4281c;
+  --color-success-bg: #eefcf4;
+  --color-success-border: #7fdcaa;
   --color-star: #f5a524;
+  --color-skeleton: #ece9f8;
+  --color-skeleton-shine: #f8f7ff;
+  --color-image-bg: #ffffff;
 
-  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --radius: 10px;
-  --shadow: 0 1px 2px rgb(0 0 0 / 6%), 0 4px 16px rgb(0 0 0 / 4%);
+  /* Brand gradient: violet → magenta → coral */
+  --gradient-brand: linear-gradient(135deg, #6d3df5 0%, #c13ee8 50%, #ff6b8b 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgb(109 61 245 / 12%), rgb(193 62 232 / 10%), rgb(255 107 139 / 12%));
+  --gradient-page:
+    radial-gradient(60rem 30rem at 10% -10%, rgb(109 61 245 / 14%), transparent 60%),
+    radial-gradient(50rem 28rem at 100% 0%, rgb(255 107 139 / 12%), transparent 60%);
+
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+  --shadow: 0 1px 2px rgb(23 22 43 / 5%), 0 8px 24px rgb(23 22 43 / 6%);
+  --shadow-lift: 0 2px 4px rgb(23 22 43 / 6%), 0 18px 40px rgb(109 61 245 / 18%);
   --space: 1rem;
-  --container: 1120px;
+  --container: 1200px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #121214;
-    --color-surface: #1c1c1f;
-    --color-text: #f2f2f3;
-    --color-text-muted: #a1a1a8;
-    --color-border: #2e2e33;
-    --color-primary: #6b8cff;
-    --color-primary-hover: #8aa4ff;
-    --color-on-primary: #0b0b0c;
+    --color-bg: #0d0b1a;
+    --color-surface: #17142b;
+    --color-surface-glass: rgb(23 20 43 / 72%);
+    --color-text: #f3f1ff;
+    --color-text-muted: #a7a3c4;
+    --color-border: #2a2645;
+    --color-primary: #a688ff;
+    --color-on-primary: #ffffff;
     --color-danger: #ff8a80;
-    --color-success-bg: #0f2a1c;
+    --color-success-bg: #10291d;
     --color-success-border: #2f7d55;
+    --color-skeleton: #211d3a;
+    --color-skeleton-shine: #2c2750;
+    --color-image-bg: #f4f3fa;
+
+    --gradient-brand-soft: linear-gradient(135deg, rgb(109 61 245 / 22%), rgb(193 62 232 / 16%), rgb(255 107 139 / 18%));
+    --gradient-page:
+      radial-gradient(60rem 30rem at 10% -10%, rgb(109 61 245 / 28%), transparent 60%),
+      radial-gradient(50rem 28rem at 100% 0%, rgb(255 107 139 / 16%), transparent 60%);
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+    --shadow-lift: 0 2px 4px rgb(0 0 0 / 30%), 0 18px 40px rgb(166 136 255 / 22%);
   }
 }

@@ -46,6 +46,9 @@ export function EnquiryForm({ product }: { product: ProductSummary }) {
   if (state === 'sent') {
     return (
       <div className="enquiry-thanks" role="status">
+        <div className="enquiry-thanks__icon" aria-hidden="true">
+          ✓
+        </div>
         <h2>Thank you</h2>
         <p>
           We've received your enquiry about <strong>{product.title}</strong> and will be in touch at{' '}
@@ -79,15 +82,17 @@ export function EnquiryForm({ product }: { product: ProductSummary }) {
         </p>
       )}
 
+      <div className="enquiry-form__grid">
       <div className="field">
         <label htmlFor="enquiry-name">Name</label>
-        <input {...fieldProps('name')} autoComplete="name" required maxLength={100} />
+        <input {...fieldProps('name')} autoComplete="name" required maxLength={100} autoFocus />
         {fieldError('name')}
       </div>
       <div className="field">
         <label htmlFor="enquiry-email">Email</label>
         <input {...fieldProps('email')} type="email" autoComplete="email" required maxLength={254} />
         {fieldError('email')}
+      </div>
       </div>
       <div className="field">
         <label htmlFor="enquiry-phone">
@@ -100,7 +105,10 @@ export function EnquiryForm({ product }: { product: ProductSummary }) {
         <label htmlFor="enquiry-message">
           Message <span className="field__optional">(optional)</span>
         </label>
-        <textarea {...fieldProps('message')} rows={4} maxLength={2000} />
+        <textarea {...fieldProps('message')} rows={4} maxLength={2000} placeholder="Sizes, quantities, delivery questions…" />
+        <span className="field__counter" aria-hidden="true">
+          {(fields.message ?? '').length}/2000
+        </span>
         {fieldError('message')}
       </div>
 
@@ -111,7 +119,13 @@ export function EnquiryForm({ product }: { product: ProductSummary }) {
       </div>
 
       <button type="submit" className="button" disabled={state === 'submitting'}>
-        {state === 'submitting' ? 'Sending…' : 'Send enquiry'}
+        {state === 'submitting' ? (
+          <>
+            <span className="spinner" aria-hidden="true" /> Sending…
+          </>
+        ) : (
+          'Send enquiry'
+        )}
       </button>
     </form>
   );

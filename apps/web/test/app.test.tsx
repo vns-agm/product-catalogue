@@ -72,8 +72,9 @@ describe('category page', () => {
     const nav = screen.getByRole('navigation', { name: 'Categories' });
     await userEvent.click(await within(nav).findByRole('link', { name: 'Electronics' }));
 
-    expect(category).toHaveBeenCalledWith('electronics');
+    // Pages are code-split, so the request happens once the page chunk has loaded.
     const topRated = await screen.findByRole('list', { name: 'Top rated in Electronics' });
+    expect(category).toHaveBeenCalledWith('electronics');
     expect(within(topRated).getByText('Gaming drive')).toBeInTheDocument();
     const more = screen.getByRole('list', { name: 'More in Electronics' });
     expect(within(more).getByText('Monitor')).toBeInTheDocument();
@@ -96,8 +97,8 @@ describe('search', () => {
     await userEvent.click(button);
 
     expect(router.state.location.search).toBe('?q=drive');
-    expect(search).toHaveBeenCalledWith('drive');
     const results = await screen.findByRole('list', { name: 'Search results' });
+    expect(search).toHaveBeenCalledWith('drive');
     expect(within(results).getAllByRole('listitem')).toHaveLength(1);
     expect(screen.getByRole('heading', { name: /1 result for “drive”/ })).toBeInTheDocument();
   });
@@ -106,6 +107,22 @@ describe('search', () => {
     vi.spyOn(api, 'search').mockResolvedValue({ query: 'zzz', products: [] });
     renderAt('/search?q=zzz');
     expect(await screen.findByText(/No products match/)).toBeInTheDocument();
+  });
+});
+
+describe('category sorting', () => {
+  it('re-orders the additional products and keeps the choice in the URL', async () => {
+    const cheap = { ...summary('6', 'Cheap cable'), price: { amount: 5, currency: 'USD' } };
+    const pricey = { ...summary('7', 'Pricey monitor'), price: { amount: 500, currency: 'USD' } };
+    vi.spyOn(api, 'category').mockResolvedValue({ category: electronics, topRated: [], more: [cheap, pricey] });
+
+    const router = renderAt('/categories/electronics');
+    const more = await screen.findByRole('list', { name: 'More in Electronics' });
+    await userEvent.selectOptions(screen.getByLabelText('Sort by'), 'price-desc');
+
+    const titles = within(more).getAllByRole('heading').map((h) => h.textContent);
+    expect(titles).toEqual(['Pricey monitor', 'Cheap cable']);
+    expect(router.state.location.search).toBe('?sort=price-desc');
   });
 });
 

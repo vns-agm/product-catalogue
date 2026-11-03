@@ -12,7 +12,12 @@ export function SearchPage() {
   const results = useApi(() => (query ? api.search(query) : Promise.resolve(null)), [query]);
 
   if (!query) {
-    return <p className="status">Enter a search term above to find products.</p>;
+    return (
+      <div className="empty-state" style={{ marginTop: '2rem' }}>
+        <div className="empty-state__icon" aria-hidden="true">🔍</div>
+        <p>Enter a search term above to find products.</p>
+      </div>
+    );
   }
 
   return (
@@ -20,12 +25,16 @@ export function SearchPage() {
       {(data) => (
         <section aria-labelledby="search-heading">
           <h1 id="search-heading">
-            {data?.products.length ?? 0} result{data?.products.length === 1 ? '' : 's'} for “{query}”
+            {data?.products.length ?? 0} result{data?.products.length === 1 ? '' : 's'} for{' '}
+            <span className="gradient-text">“{query}”</span>
           </h1>
           {data && data.products.length > 0 ? (
             <ProductGrid products={data.products} label="Search results" />
           ) : (
-            <p className="status">No products match that search. Try a different term.</p>
+            <div className="empty-state">
+              <div className="empty-state__icon" aria-hidden="true">🛍️</div>
+              <p>No products match that search. Try a different term.</p>
+            </div>
           )}
         </section>
       )}
