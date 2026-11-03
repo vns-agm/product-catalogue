@@ -74,6 +74,20 @@ describe('GET /api/categories/:slug (category page)', () => {
     const res = await request(app).get('/api/categories').expect(200);
     expect(res.body.categories.map((c: { slug: string }) => c.slug)).toEqual(['electronics', 'jewelery']);
   });
+
+  it('includes a product count and best-rated preview images for each category card', async () => {
+    const { app } = setup();
+    const res = await request(app).get('/api/categories').expect(200);
+    const [electronics, jewelery] = res.body.categories;
+    expect(electronics.productCount).toBe(4);
+    // Best rated first (ids 2, 3, 1), capped at three images.
+    expect(electronics.previewImageUrls).toEqual([
+      'https://example.com/2.png',
+      'https://example.com/3.png',
+      'https://example.com/1.png',
+    ]);
+    expect(jewelery).toMatchObject({ productCount: 1, previewImageUrls: ['https://example.com/5.png'] });
+  });
 });
 
 describe('GET /api/search', () => {

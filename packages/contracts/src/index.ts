@@ -26,6 +26,13 @@ export interface Category {
   name: string;
 }
 
+/** A category plus what's needed to render it as a browsable card. */
+export interface CategorySummary extends Category {
+  productCount: number;
+  /** Images of the category's best-rated products, best first (up to 3). */
+  previewImageUrls: string[];
+}
+
 export interface ProductSummary {
   id: string;
   title: string;
@@ -44,7 +51,7 @@ export interface FeaturedResponse {
 }
 
 export interface CategoriesResponse {
-  categories: Category[];
+  categories: CategorySummary[];
 }
 
 export interface CategoryPageResponse {

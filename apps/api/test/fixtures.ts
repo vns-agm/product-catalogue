@@ -8,7 +8,7 @@ export function product(overrides: Partial<Product> & { id: string }): Product {
     title: `Product ${overrides.id}`,
     description: 'A product',
     price: { amount: 10, currency: 'USD' },
-    imageUrl: 'https://example.com/image.png',
+    imageUrl: `https://example.com/${overrides.id}.png`,
     category: { slug: 'electronics', name: 'Electronics' },
     rating: { average: 3, count: 10 },
     ...overrides,

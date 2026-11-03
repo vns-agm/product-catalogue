@@ -29,7 +29,9 @@ function renderAt(path: string) {
 }
 
 beforeEach(() => {
-  vi.spyOn(api, 'categories').mockResolvedValue({ categories: [electronics] });
+  vi.spyOn(api, 'categories').mockResolvedValue({
+    categories: [{ ...electronics, productCount: 6, previewImageUrls: ['https://img.test/a.png', 'https://img.test/b.png'] }],
+  });
 });
 
 describe('home page', () => {
@@ -42,6 +44,18 @@ describe('home page', () => {
     const grid = await screen.findByRole('list', { name: 'Top rated products' });
     expect(within(grid).getAllByRole('listitem')).toHaveLength(5);
     expect(within(grid).getByText('Product A')).toBeInTheDocument();
+  });
+
+  it('shows each category as a card with its product count and preview images', async () => {
+    vi.spyOn(api, 'featured').mockResolvedValue({ products: [] });
+    const router = renderAt('/');
+
+    const grid = await screen.findByRole('list', { name: 'Shop by category' });
+    const card = within(grid).getByRole('link', { name: 'Electronics, 6 products' });
+    expect(card.querySelectorAll('img')).toHaveLength(2);
+
+    await userEvent.click(card);
+    expect(router.state.location.pathname).toBe('/categories/electronics');
   });
 
   it('shows an error with a retry when the API fails', async () => {

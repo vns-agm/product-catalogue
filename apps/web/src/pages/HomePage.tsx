@@ -1,4 +1,5 @@
 import { api } from '../api/client';
+import { CategoryGrid, CategoryGridSkeleton } from '../components/CategoryCard';
 import { ProductGrid } from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/Skeleton';
 import { AsyncContent } from '../components/Status';
@@ -8,6 +9,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle';
 export function HomePage() {
   useDocumentTitle('Home');
   const featured = useApi(() => api.featured(), []);
+  const categories = useApi(() => api.categories(), []);
 
   return (
     <>
@@ -17,9 +19,21 @@ export function HomePage() {
           Find something <span className="gradient-text">you'll love</span>
         </h1>
         <p className="hero__lede">
-          Browse our hand-picked favourites below, or pick a category above. See something you like?
+          Browse our hand-picked favourites, or explore a category below. See something you like?
           Open it and send us an enquiry.
         </p>
+      </section>
+
+      <section aria-labelledby="categories-heading">
+        <div className="section-head">
+          <div>
+            <h2 id="categories-heading">Shop by category</h2>
+            <p>A peek at the best-rated products in each.</p>
+          </div>
+        </div>
+        <AsyncContent state={categories} fallback={<CategoryGridSkeleton />}>
+          {(data) => <CategoryGrid categories={data.categories} />}
+        </AsyncContent>
       </section>
 
       <section aria-labelledby="featured-heading">

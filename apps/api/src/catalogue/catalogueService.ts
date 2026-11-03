@@ -1,4 +1,4 @@
-import type { Category, Product, ProductSummary } from '@catalogue/contracts';
+import type { CategorySummary, Product, ProductSummary } from '@catalogue/contracts';
 import { NotFoundError } from '../http/errors';
 import type { ProductSource } from './productSource';
 
@@ -7,6 +7,8 @@ interface CatalogueOptions {
   categoryTopRatedCount: number;
   logger?: Pick<Console, 'warn'>;
 }
+
+const PREVIEW_IMAGES = 3;
 
 /** Merchandising rules (what is "featured", what is "top rated") live here, not in the source. */
 export class CatalogueService {
@@ -31,8 +33,19 @@ export class CatalogueService {
     return products.map(toSummary);
   }
 
-  listCategories(): Promise<Category[]> {
-    return this.source.listCategories();
+  /** Categories with a product count and preview images of their best-rated products. */
+  async listCategories(): Promise<CategorySummary[]> {
+    const categories = await this.source.listCategories();
+    return Promise.all(
+      categories.map(async (category) => {
+        const products = [...(await this.source.listProductsInCategory(category.slug))].sort(byRating);
+        return {
+          ...category,
+          productCount: products.length,
+          previewImageUrls: products.slice(0, PREVIEW_IMAGES).map((product) => product.imageUrl),
+        };
+      }),
+    );
   }
 
   async getCategoryPage(slug: string) {
