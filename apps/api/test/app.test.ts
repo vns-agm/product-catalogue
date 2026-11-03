@@ -39,10 +39,11 @@ describe('GET /api/featured (home page)', () => {
     expect(res.body.products.map((p: { id: string }) => p.id)).toEqual(['5', '1', '4']);
   });
 
-  it('does not leak product descriptions into summaries', async () => {
+  it('sends a short excerpt in summaries instead of the full description', async () => {
     const { app } = setup();
     const res = await request(app).get('/api/featured');
     expect(res.body.products[0]).not.toHaveProperty('description');
+    expect(res.body.products[0].excerpt).toBe('A product');
   });
 });
 

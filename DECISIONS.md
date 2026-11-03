@@ -39,6 +39,16 @@ deliberate trade-off. The alternative, failing loudly, is defensible too.
 **Currency.** Fake Store has none. It is a US store, so prices are assumed to be USD. The contract
 carries `{ amount, currency }` so a real source can supply it.
 
+**Visual design.** The look is a placeholder for the brand's real creative work, but it is
+built to be swapped: a warm-ivory palette, an editorial serif (Cormorant Garamond) for display
+type with Inter for text, and one restrained bronze accent, all defined in
+`apps/web/src/styles/tokens.css`. Product photos sit on always-light panels (`--color-panel`)
+because Fake Store images have white backgrounds; this keeps them clean in dark mode too.
+
+**Card descriptions.** Product cards show a short excerpt rather than the full description.
+The API builds it (`excerpt` in `CatalogueService`: sentence-cased, cut at a word boundary,
+120 characters) so every client gets the same text and full descriptions stay on the product page.
+
 ## Requirements dropped or simplified, and why
 
 - **No admin UI for choosing featured products.** Configuration covers the criterion, and an admin

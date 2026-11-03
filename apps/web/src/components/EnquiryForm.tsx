@@ -1,6 +1,7 @@
 import type { EnquiryRequest, ProductSummary } from '@catalogue/contracts';
 import { type FormEvent, useState } from 'react';
 import { api, ApiRequestError } from '../api/client';
+import { Icon } from './Icon';
 
 type Fields = Pick<EnquiryRequest, 'name' | 'email' | 'phone' | 'message' | 'company'>;
 type FieldErrors = Partial<Record<keyof Fields | '_', string>>;
@@ -15,7 +16,7 @@ function validate(fields: Fields): FieldErrors {
   return errors;
 }
 
-export function EnquiryForm({ product }: { product: ProductSummary }) {
+export function EnquiryForm({ product }: { product: Pick<ProductSummary, 'id' | 'title'> }) {
   const [fields, setFields] = useState<Fields>(EMPTY);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [state, setState] = useState<'editing' | 'submitting' | 'sent'>('editing');
@@ -47,7 +48,7 @@ export function EnquiryForm({ product }: { product: ProductSummary }) {
     return (
       <div className="enquiry-thanks" role="status">
         <div className="enquiry-thanks__icon" aria-hidden="true">
-          ✓
+          <Icon name="check" size={22} />
         </div>
         <h2>Thank you</h2>
         <p>
@@ -76,8 +77,9 @@ export function EnquiryForm({ product }: { product: ProductSummary }) {
   return (
     <form className="enquiry-form" onSubmit={onSubmit} noValidate aria-label="Enquiry form">
       <h2>Enquire about this product</h2>
+      <p className="enquiry-form__intro">Leave your details and a specialist will reply within one business day.</p>
       {errors._ && (
-        <p className="status status--error" role="alert">
+        <p className="form-error" role="alert">
           {errors._}
         </p>
       )}

@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../api/client';
 import { ProductGrid } from '../components/ProductCard';
-import { AsyncContent } from '../components/Status';
+import { AsyncContent, EmptyState } from '../components/Status';
 import { useApi } from '../hooks/useApi';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
@@ -13,31 +13,37 @@ export function SearchPage() {
 
   if (!query) {
     return (
-      <div className="empty-state" style={{ marginTop: '2rem' }}>
-        <div className="empty-state__icon" aria-hidden="true">🔍</div>
-        <p>Enter a search term above to find products.</p>
+      <div className="container page-pad">
+        <EmptyState title="Search the catalogue" message="Enter a search term above to find products." />
       </div>
     );
   }
 
   return (
     <AsyncContent state={results}>
-      {(data) => (
-        <section aria-labelledby="search-heading">
-          <h1 id="search-heading">
-            {data?.products.length ?? 0} result{data?.products.length === 1 ? '' : 's'} for{' '}
-            <span className="gradient-text">“{query}”</span>
-          </h1>
-          {data && data.products.length > 0 ? (
-            <ProductGrid products={data.products} label="Search results" />
-          ) : (
-            <div className="empty-state">
-              <div className="empty-state__icon" aria-hidden="true">🛍️</div>
-              <p>No products match that search. Try a different term.</p>
-            </div>
-          )}
-        </section>
-      )}
+      {(data) => {
+        const count = data?.products.length ?? 0;
+        return (
+          <div className="container">
+            <header className="page-header">
+              <p className="eyebrow">Search</p>
+              <h1 id="search-heading" className="display page-header__title">
+                {count} result{count === 1 ? '' : 's'} for “{query}”
+              </h1>
+            </header>
+            {data && count > 0 ? (
+              <section className="section" aria-labelledby="search-heading">
+                <ProductGrid products={data.products} label="Search results" />
+              </section>
+            ) : (
+              <EmptyState
+                title="No matches"
+                message="No products match that search. Try a different term, or browse a category."
+              />
+            )}
+          </div>
+        );
+      }}
     </AsyncContent>
   );
 }

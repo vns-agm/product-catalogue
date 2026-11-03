@@ -16,10 +16,12 @@ function summary(id: string, title: string): ProductSummary {
     imageUrl: `https://img.test/${id}.png`,
     category: electronics,
     rating: { average: 4, count: 10 },
+    excerpt: `About ${title}`,
   };
 }
 
-const drive: Product = { ...summary('2', 'Gaming drive'), description: 'Fast storage for consoles' };
+const { excerpt: _excerpt, ...driveSummary } = summary('2', 'Gaming drive');
+const drive: Product = { ...driveSummary, description: 'Fast storage for consoles' };
 
 /** Renders the real route tree at `path`, with the API client stubbed. */
 function renderAt(path: string) {
@@ -68,7 +70,8 @@ describe('home page', () => {
 
     expect(await screen.findByRole('alert')).toHaveTextContent('temporarily unavailable');
     await userEvent.click(screen.getByRole('button', { name: 'Try again' }));
-    expect(await screen.findByText('Recovered')).toBeInTheDocument();
+    const grid = await screen.findByRole('list', { name: 'Top rated products' });
+    expect(within(grid).getByText('Recovered')).toBeInTheDocument();
     expect(featured).toHaveBeenCalledTimes(2);
   });
 });
@@ -148,7 +151,8 @@ describe('product page and enquiry', () => {
 
   it('opens product details when a product tile is clicked', async () => {
     renderAt('/');
-    await userEvent.click(await screen.findByRole('link', { name: /Gaming drive/ }));
+    const grid = await screen.findByRole('list', { name: 'Top rated products' });
+    await userEvent.click(within(grid).getByRole('link', { name: /Gaming drive/ }));
 
     expect(await screen.findByRole('heading', { level: 1, name: 'Gaming drive' })).toBeInTheDocument();
     expect(screen.getByText('Fast storage for consoles')).toBeInTheDocument();

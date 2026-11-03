@@ -74,6 +74,15 @@ export function byRating(a: Product, b: Product): number {
   return b.rating.average - a.rating.average || b.rating.count - a.rating.count;
 }
 
-export function toSummary({ description: _description, ...summary }: Product): ProductSummary {
-  return summary;
+export function toSummary({ description, ...summary }: Product): ProductSummary {
+  return { ...summary, excerpt: excerpt(description) };
+}
+
+/** Sentence-cased, whitespace-normalised, cut at a word boundary. */
+export function excerpt(text: string, max = 120): string {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  const cased = clean.charAt(0).toUpperCase() + clean.slice(1);
+  if (cased.length <= max) return cased;
+  const cut = cased.slice(0, max);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,.;:–-]+$/, '')}…`;
 }

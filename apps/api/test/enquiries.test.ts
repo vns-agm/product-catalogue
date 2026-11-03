@@ -1,5 +1,6 @@
 import { createClient } from '@libsql/client';
 import { describe, expect, it } from 'vitest';
+import { excerpt } from '../src/catalogue/catalogueService';
 import { loadConfig } from '../src/config';
 import { buildSalesEnquiryEmail } from '../src/email/enquiryEmail';
 import { type Enquiry, LibsqlEnquiryRepository } from '../src/enquiries/enquiryRepository';
@@ -66,5 +67,17 @@ describe('loadConfig', () => {
 
   it('parses the featured product list', () => {
     expect(loadConfig({ FEATURED_PRODUCT_IDS: ' 7, 8 ,,9 ' }).FEATURED_PRODUCT_IDS).toEqual(['7', '8', '9']);
+  });
+});
+
+describe('excerpt', () => {
+  it('sentence-cases and normalises whitespace', () => {
+    expect(excerpt('  great   outerwear\njackets ')).toBe('Great outerwear jackets');
+  });
+
+  it('cuts long text at a word boundary with an ellipsis', () => {
+    const result = excerpt('word '.repeat(60), 30);
+    expect(result.length).toBeLessThanOrEqual(31);
+    expect(result).toMatch(/^Word( word)*…$/);
   });
 });

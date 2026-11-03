@@ -40,9 +40,11 @@ export interface ProductSummary {
   imageUrl: string;
   category: Category;
   rating: Rating;
+  /** A short, sentence-cased teaser of the description for cards (≤ 120 chars). */
+  excerpt: string;
 }
 
-export interface Product extends ProductSummary {
+export interface Product extends Omit<ProductSummary, 'excerpt'> {
   description: string;
 }
 

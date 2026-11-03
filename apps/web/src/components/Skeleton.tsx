@@ -1,17 +1,14 @@
-import type React from 'react';
-/** Placeholder shapes shown while data loads, so the layout doesn't jump. */
-export function ProductGridSkeleton({ count = 8 }: { count?: number }) {
+/** Placeholders that match the real layout, so content never shifts when it arrives. */
+export function ProductGridSkeleton({ count = 8, columns = 4 }: { count?: number; columns?: 3 | 4 | 5 }) {
   return (
-    <ul className="product-grid" aria-hidden="true">
+    <ul className={`product-grid${columns === 4 ? '' : ` product-grid--${columns}`}`} aria-hidden="true">
       {Array.from({ length: count }, (_, i) => (
-        <li key={i} style={{ '--i': i } as React.CSSProperties}>
-          <div className="skeleton-card">
-            <div className="skeleton skeleton--media" />
-            <div className="skeleton-card__body">
-              <div className="skeleton skeleton--line short" />
-              <div className="skeleton skeleton--line" />
-              <div className="skeleton skeleton--line mid" />
-            </div>
+        <li key={i} className="skeleton-card">
+          <div className="skeleton skeleton--media" />
+          <div className="skeleton-card__body">
+            <div className="skeleton skeleton--line short" />
+            <div className="skeleton skeleton--line" />
+            <div className="skeleton skeleton--line mid" />
           </div>
         </li>
       ))}
@@ -21,8 +18,11 @@ export function ProductGridSkeleton({ count = 8 }: { count?: number }) {
 
 export function PageSkeleton() {
   return (
-    <div role="status" aria-label="Loading">
-      <div className="skeleton skeleton--title" />
+    <div className="container" role="status" aria-label="Loading">
+      <div className="page-header">
+        <div className="skeleton skeleton--line short" />
+        <div className="skeleton skeleton--title" />
+      </div>
       <ProductGridSkeleton />
     </div>
   );
@@ -30,13 +30,12 @@ export function PageSkeleton() {
 
 export function ProductDetailSkeleton() {
   return (
-    <div className="product-detail" role="status" aria-label="Loading">
-      <div className="skeleton" style={{ aspectRatio: '1', borderRadius: 'var(--radius)' }} />
-      <div style={{ display: 'grid', gap: '0.9rem', alignContent: 'start' }}>
+    <div className="container product-detail" role="status" aria-label="Loading">
+      <div className="skeleton skeleton--media" style={{ aspectRatio: '4 / 4.6' }} />
+      <div className="product-detail__info">
         <div className="skeleton skeleton--line short" />
-        <div className="skeleton skeleton--title" style={{ margin: 0 }} />
+        <div className="skeleton skeleton--title" />
         <div className="skeleton skeleton--line mid" />
-        <div className="skeleton" style={{ height: '2.2rem', width: '9rem' }} />
         <div className="skeleton skeleton--line" />
         <div className="skeleton skeleton--line" />
         <div className="skeleton skeleton--line mid" />
