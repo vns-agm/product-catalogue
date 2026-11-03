@@ -1,0 +1,41 @@
+/*
+ * Design tokens. The brand's look and feel is still being designed, so every
+ * colour, font and radius lives here; restyling should mostly mean editing
+ * this file.
+ */
+:root {
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-text: #1d1d1f;
+  --color-text-muted: #6b6b70;
+  --color-border: #e3e3e0;
+  --color-primary: #1f4fd8;
+  --color-primary-hover: #183fb0;
+  --color-on-primary: #ffffff;
+  --color-danger: #b42318;
+  --color-success-bg: #ecfdf3;
+  --color-success-border: #75e0a7;
+  --color-star: #f5a524;
+
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgb(0 0 0 / 6%), 0 4px 16px rgb(0 0 0 / 4%);
+  --space: 1rem;
+  --container: 1120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #121214;
+    --color-surface: #1c1c1f;
+    --color-text: #f2f2f3;
+    --color-text-muted: #a1a1a8;
+    --color-border: #2e2e33;
+    --color-primary: #6b8cff;
+    --color-primary-hover: #8aa4ff;
+    --color-on-primary: #0b0b0c;
+    --color-danger: #ff8a80;
+    --color-success-bg: #0f2a1c;
+    --color-success-border: #2f7d55;
+  }
+}

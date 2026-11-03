@@ -1,0 +1,12 @@
+{
+  "name": "@catalogue/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Type-only API contract shared by the web client and the API. Contains no runtime code.",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts"
+    }
+  }
+}
