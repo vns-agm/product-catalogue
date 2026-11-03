@@ -145,6 +145,11 @@ or behind Lambda, and serve `apps/web/dist` from S3 + CloudFront.
 
 ## Further reading
 
+This repository follows a spec-driven workflow. [docs/README.md](docs/README.md) maps every document.
+
+- [Constitution](.specify/memory/constitution.md): non-negotiable principles for people and AI agents
+- [specs/](specs/): one folder per feature (spec, plan, research, data model, API contract, tasks)
+- [Style guide](docs/style-guide.md): design system (colour, type, spacing, motion) and code conventions
 - [DECISIONS.md](DECISIONS.md): assumptions, cuts, how this grows, what's next
 - [AI_USAGE.md](AI_USAGE.md): how AI tools were used and where they went wrong
-- [AGENTS.md](AGENTS.md): instructions for AI coding agents working in this repo
+- [AGENTS.md](AGENTS.md): operating instructions for AI coding agents

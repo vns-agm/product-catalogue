@@ -1,5 +1,19 @@
 # Agent instructions
 
+Read these first, in order:
+1. [`.specify/memory/constitution.md`](.specify/memory/constitution.md): principles that override everything else
+2. The spec, plan and tasks for the feature you're working on, in `specs/NNN-*/`
+3. [`docs/style-guide.md`](docs/style-guide.md) for any UI or code-style question
+
+## Spec-driven workflow
+- No code without a spec: for new work, create `specs/NNN-name/` from `.specify/templates/`
+  (spec, then plan with its Constitution Check, then tasks). See [`docs/README.md`](docs/README.md).
+- Work one task at a time, writing the test first. Tick tasks off in `tasks.md` as they're done.
+- Before saying anything is done, run `npm run typecheck`, `npm test` and `npm run build`, and check UI
+  changes at phone, tablet and desktop widths.
+- Record every AI mistake you catch (what, how it was caught, the fix) in `AI_USAGE.md`.
+
+
 This is an npm-workspaces monorepo: `apps/api` (Express 5, TypeScript, CommonJS),
 `apps/web` (React 18 + Vite), `packages/contracts` (type-only API contract).
 
