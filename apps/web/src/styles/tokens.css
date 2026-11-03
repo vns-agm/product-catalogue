@@ -4,12 +4,12 @@
  * editing this file.
  */
 :root {
-  --color-bg: #f6f5ff;
+  --color-bg: #f7f7fb;
   --color-surface: #ffffff;
-  --color-surface-glass: rgb(255 255 255 / 72%);
+  --color-surface-glass: rgb(255 255 255 / 92%);
   --color-text: #17162b;
-  --color-text-muted: #5f5d7a;
-  --color-border: #e6e3f5;
+  --color-text-muted: #4b4963;
+  --color-border: #e2e0ee;
   --color-primary: #6d3df5;
   --color-on-primary: #ffffff;
   --color-danger: #c4281c;
@@ -23,9 +23,7 @@
   /* Brand gradient: violet → magenta → coral */
   --gradient-brand: linear-gradient(135deg, #6d3df5 0%, #c13ee8 50%, #ff6b8b 100%);
   --gradient-brand-soft: linear-gradient(135deg, rgb(109 61 245 / 12%), rgb(193 62 232 / 10%), rgb(255 107 139 / 12%));
-  --gradient-page:
-    radial-gradient(60rem 30rem at 10% -10%, rgb(109 61 245 / 14%), transparent 60%),
-    radial-gradient(50rem 28rem at 100% 0%, rgb(255 107 139 / 12%), transparent 60%);
+  --gradient-page: none;
 
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --radius: 14px;
@@ -42,9 +40,9 @@
   :root {
     --color-bg: #0d0b1a;
     --color-surface: #17142b;
-    --color-surface-glass: rgb(23 20 43 / 72%);
+    --color-surface-glass: rgb(23 20 43 / 92%);
     --color-text: #f3f1ff;
-    --color-text-muted: #a7a3c4;
+    --color-text-muted: #c2bfda;
     --color-border: #2a2645;
     --color-primary: #a688ff;
     --color-on-primary: #ffffff;
@@ -56,9 +54,7 @@
     --color-image-bg: #f4f3fa;
 
     --gradient-brand-soft: linear-gradient(135deg, rgb(109 61 245 / 22%), rgb(193 62 232 / 16%), rgb(255 107 139 / 18%));
-    --gradient-page:
-      radial-gradient(60rem 30rem at 10% -10%, rgb(109 61 245 / 28%), transparent 60%),
-      radial-gradient(50rem 28rem at 100% 0%, rgb(255 107 139 / 16%), transparent 60%);
+    --gradient-page: none;
     --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
     --shadow-lift: 0 2px 4px rgb(0 0 0 / 30%), 0 18px 40px rgb(166 136 255 / 22%);
   }

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { api } from '../api/client';
 import { ProductGrid } from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/Skeleton';
@@ -9,7 +8,6 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle';
 export function HomePage() {
   useDocumentTitle('Home');
   const featured = useApi(() => api.featured(), []);
-  const categories = useApi(() => api.categories(), []);
 
   return (
     <>
@@ -19,20 +17,9 @@ export function HomePage() {
           Find something <span className="gradient-text">you'll love</span>
         </h1>
         <p className="hero__lede">
-          Browse our hand-picked favourites, explore by category, and send us an enquiry about anything
-          that catches your eye.
+          Browse our hand-picked favourites below, or pick a category above. See something you like?
+          Open it and send us an enquiry.
         </p>
-        {categories.status === 'success' && (
-          <ul className="hero__chips" aria-label="Shop by category">
-            {categories.data.categories.map((category) => (
-              <li key={category.slug}>
-                <Link to={`/categories/${category.slug}`} className="chip">
-                  {category.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
       </section>
 
       <section aria-labelledby="featured-heading">
