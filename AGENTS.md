@@ -20,7 +20,8 @@ This is an npm-workspaces monorepo: `apps/api` (Express 5, TypeScript, CommonJS)
 ## Commands
 - `npm run dev`: API on :3001 and web on :5173 (web proxies `/api`)
 - `npm test`: all tests. Run them before saying a change is done.
-- `npm run typecheck`: must pass
+- `npm run typecheck`: must pass (includes the e2e suite)
+- `npm run test:e2e`: Playwright end-to-end tests (desktop + mobile). Run it for any change to pages, routes or flows
 
 ## Rules
 - The client never calls third-party APIs. All product data goes through `apps/api`.

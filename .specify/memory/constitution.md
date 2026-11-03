@@ -4,7 +4,7 @@ The non-negotiable principles for building this product, for people and AI agent
 Every spec, plan and change is checked against them. When a principle and a deadline
 conflict, the principle wins, or the principle is amended (see Governance), never quietly ignored.
 
-**Version:** 1.0.0 · **Ratified:** 2026-11-03 · **Last amended:** 2026-11-03
+**Version:** 1.1.0 · **Ratified:** 2026-11-03 · **Last amended:** 2026-11-03 (added end-to-end gate)
 
 ---
 
@@ -51,7 +51,9 @@ A change to the contract is a change to both client and server and is made in on
   external edges** (product source, repository, email).
 - UI behaviour is tested by rendering the real route tree with the API client stubbed, and by
   querying what a user perceives (roles, labels, text), never implementation details.
-- `npm run typecheck` and `npm test` pass before any change is called done.
+- Every user story has an end-to-end test in `e2e/` that drives the real app in a browser.
+- `npm run typecheck` and `npm test` pass before any change is called done, and `npm run test:e2e`
+  passes for any change to pages, routes or user flows.
 
 ### V. Secure and honest by default
 
@@ -98,6 +100,7 @@ A change may merge only when all of these hold:
 - [ ] It traces to a task in a spec's `tasks.md`.
 - [ ] `npm run typecheck` passes.
 - [ ] `npm test` passes, and new behaviour has new tests.
+- [ ] `npm run test:e2e` passes (required when pages, routes or flows change).
 - [ ] `npm run build` succeeds.
 - [ ] No new secrets, and new config is in `config.ts` and `.env.example`.
 - [ ] UI changes were checked at phone, tablet and desktop widths, in light and dark mode.

@@ -50,6 +50,21 @@ npm test          # API (Vitest + Supertest) and web (Vitest + Testing Library)
 npm run typecheck
 ```
 
+### End-to-end tests (Playwright)
+
+```bash
+npx playwright install chromium   # once, downloads the test browser
+npm run test:e2e                  # desktop + mobile, starts its own servers
+npm run test:e2e:ui               # interactive mode
+```
+
+The suite in `e2e/` drives the real API and web app in Chromium. It covers every acceptance
+criterion, plus the mobile menu, layout overflow, not-found pages, dark mode, and a check that
+the browser never calls the product data source directly.
+
+It starts its own servers on ports 3101 and 5174, so it doesn't clash with `npm run dev`. It uses
+the committed product snapshot, so results are deterministic and work offline.
+
 ### Build
 
 ```bash

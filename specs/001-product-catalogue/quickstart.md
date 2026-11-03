@@ -28,15 +28,16 @@ sqlite3 apps/api/data/local.db "SELECT product_title, name, email_status FROM en
 ```bash
 npm run typecheck
 npm test           # API (Supertest) + web (Testing Library)
+npm run test:e2e   # Playwright: real browser, desktop + mobile
 npm run build
 ```
 
 ## Where each criterion is tested
 
-| Criterion | API test | UI test |
-| --- | --- | --- |
-| Featured products | `apps/api/test/app.test.ts` › `GET /api/featured` | `apps/web/test/app.test.tsx` › home page |
-| Category page | › `GET /api/categories/:slug` | › category page, category sorting |
-| Search | › `GET /api/search` | › search |
-| Product details | › `GET /api/products/:id` | › product page and enquiry |
-| Enquiry | › `POST /api/enquiries` | › product page and enquiry |
+| Criterion | API test | UI test | E2E (`e2e/catalogue.spec.ts`) |
+| --- | --- | --- | --- |
+| Featured products | `apps/api/test/app.test.ts` › `GET /api/featured` | `apps/web/test/app.test.tsx` › home page | US1 |
+| Category page | › `GET /api/categories/:slug` | › category page, category sorting | US2 |
+| Search | › `GET /api/search` | › search | US3 |
+| Product details | › `GET /api/products/:id` | › product page and enquiry | US4 |
+| Enquiry | › `POST /api/enquiries` | › product page and enquiry | US5 |

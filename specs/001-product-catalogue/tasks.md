@@ -66,5 +66,5 @@
 
 - [ ] T040 Retry job for enquiries with `email_status = 'failed'`
 - [ ] T041 Featured products in the database with an authenticated admin page
-- [ ] T042 Playwright end-to-end tests for the five acceptance criteria, in CI
+- [X] T042 Playwright end-to-end tests for the five acceptance criteria (`e2e/`, `npm run test:e2e`); running them in CI is still to do
 - [ ] T043 Migrations tool to replace create-on-first-use

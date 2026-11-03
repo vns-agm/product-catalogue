@@ -103,8 +103,8 @@ Other choices that help it grow:
 2. **A retry job for `email_status = 'failed'` enquiries** (cron or queue), plus an alert.
 3. **A real email provider in the hosted demo** (SES or Resend), with a confirmation email to
    the customer.
-4. **Playwright end-to-end tests** for the five acceptance criteria against the running stack,
-   in CI on every PR (GitHub Actions: typecheck, unit tests, e2e).
+4. **CI on every PR** (GitHub Actions: typecheck, unit tests and the Playwright e2e suite in `e2e/`,
+   which now covers all five acceptance criteria).
 5. **Migrations** (Drizzle or similar) instead of create-on-first-use.
 6. **Shared rate limiting** and structured logging with request ids.
 7. **SEO and performance:** server-render or pre-render product pages, add image sizing, and
